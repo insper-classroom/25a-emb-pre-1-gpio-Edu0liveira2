@@ -28,25 +28,17 @@ int main() {
 
   while (true) {
     if (!gpio_get(BTNG_PIN)) {
-      if(state_g == 0){
-        gpio_put(LED_PIN_G, 1);
-        state_g = 1;
-      }
-      else{
-        gpio_put(LED_PIN_G, 0);
-        state_g = 0;
-      } 
+      state_g = !state_g;
+      gpio_put(LED_PIN_G, state_g);
+      while (!gpio_get(BTNG_PIN)) {
+      };
     }
     
-    else if (!gpio_get(BTNR_PIN)) {
-      if(state_r == 0){
-        gpio_put(LED_PIN_R, 1);
-        state_r = 1;
-      }
-      else{
-        gpio_put(LED_PIN_R, 0);
-        state_r = 0;
-      } 
+    if (!gpio_get(BTNR_PIN)) {
+      state_r = !state_r;
+      gpio_put(LED_PIN_R, state_r);
+      while (!gpio_get(BTNR_PIN)) {
+      };
     } 
   }
 }
